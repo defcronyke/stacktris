@@ -12,7 +12,7 @@ Stacktris.prototype.start = function() {
 	
 	this.bunny = null;
 	
-	PIXI.loader.add('bunny', 'bunny.png').load(function (loader, resources) {
+	PIXI.loader.add('bunny', 'bunny.png').load((function(loader, resources) {
 	    // This creates a texture from a 'bunny.png' image.
 	    this.bunny = new PIXI.Sprite(resources.bunny.texture);
 
@@ -28,7 +28,7 @@ Stacktris.prototype.start = function() {
 
 	    // kick off the animation loop (defined below)
 	    this.animate();
-	});
+	}).bind(this));
 };
 
 Stacktris.prototype.animate = function() {
