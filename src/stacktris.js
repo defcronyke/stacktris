@@ -13,6 +13,12 @@ Stacktris.prototype.start = function() {
 		antialias: true
 	});
 	
+	this.renderer.view.requestFullscreen = this.renderer.view.mozRequestFullScreen || this.renderer.view.webkitRequestFullScreen || this.renderer.view.requestFullScreen;
+	
+	this.renderer.view.onclick = (function(e) {
+		this.renderer.view.requestFullscreen();
+	}).bind(this);
+	
 	document.body.appendChild(this.renderer.view);
 	this.w = 400.0;
 	this.density = 1.0;
