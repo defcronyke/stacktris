@@ -20,11 +20,13 @@ function Asdf(x, y, rot, w, h, density, friction, restitution) {
         -1.0 * scale, 0.25 * scale
     ];
 	
-	this.shape = [
-        [-1.0 * scale, -0.25 * scale],
-        [1.0 * scale, -0.25 * scale],
-        [1.0 * scale, 0.25 * scale],
-        [-1.0 * scale, 0.25 * scale]
+	this.shapes = [
+       [
+	        [-1.0 * scale, -0.25 * scale],
+	        [1.0 * scale, -0.25 * scale],
+	        [1.0 * scale, 0.25 * scale],
+	        [-1.0 * scale, 0.25 * scale]
+        ]
     ];
 	
 	this.colour = 0xFF33FF;

@@ -24,7 +24,7 @@ function Wasd(x, y, rot, w, h, density, friction, restitution) {
     ];
 	
 	// TODO: Fix this
-	this.shape = [
+	this.shapes = [
         [
 	        [-0.75 * scale, -0.25 * scale],
 	        [0.75 * scale, -0.25 * scale],
