@@ -19,9 +19,9 @@ Stacktris.prototype.start = function() {
 		this.renderer.view.requestFullscreen();
 	}).bind(this);
 	
-	this.renderer.view.ontouchstart = (function(e) {
+	this.renderer.view.addEventListener('touchstart', (function(e) {
 		this.renderer.view.requestFullscreen();
-	}).bind(this);
+	}).bind(this));
 	
 	document.body.appendChild(this.renderer.view);
 	this.w = 400.0;
