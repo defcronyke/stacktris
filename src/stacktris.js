@@ -19,8 +19,34 @@ Stacktris.prototype.start = function() {
 		this.renderer.view.requestFullscreen();
 	}).bind(this);
 	
+	this.moved = false;
+	
 	this.renderer.view.addEventListener('touchstart', (function(e) {
 		this.renderer.view.requestFullscreen();
+		this.moved = false;
+	}).bind(this));
+	
+	this.renderer.view.addEventListener('touchmove', (function(e) {
+		this.moved = true;
+	}).bind(this));
+	
+	this.renderer.view.addEventListener('touchend', (function(e) {
+		
+		if (!this.moved) {
+			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+		}
+		
+		this.moved = false;
+	}).bind(this));
+	
+	
+	
+	window.addEventListener('keydown', (function(e) {
+		var obj = this.objects[this.objects.length-1];
+		if (e.keyCode === 32 && !this.moved) {
+			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+		}
+		this.moved = false;
 	}).bind(this));
 	
 	document.body.appendChild(this.renderer.view);
@@ -53,10 +79,10 @@ Stacktris.prototype.start = function() {
 	var a = this.angles[Math.floor(Math.random()) % this.angles.length];
 	
 	this.possibleObjects = [
-//        Asdf,
-//        Qwas,
-//        Easd,
-//        Qasd,
+        Asdf,
+        Qwas,
+        Easd,
+        Qasd,
         Wasd
     ];
 	
