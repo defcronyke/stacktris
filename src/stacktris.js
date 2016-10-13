@@ -16,9 +16,9 @@ Stacktris.prototype.start = function() {
 	document.body.appendChild(this.renderer.view);
 	this.w = 400.0;
 	this.density = 1.0;
-	this.friction = 0.3;
-	this.restitution = 0.6;
-	this.yStart = -2.0;
+	this.friction = 0.99;
+	this.restitution = 0.4;
+	this.yStart = 0.0;
 	
 	this.stage = new PIXI.Container();
 	this.angles = [
@@ -284,7 +284,9 @@ Stacktris.prototype.stepPhysics = function() {
 //	console.log('! ' + 4.0 + this.restitution * 10);
 //	console.log('y pos: ' + this.dynamicBodies[this.dynamicBodies.length-1].GetPosition().y);
 	
-	if (this.dynamicBodies[this.dynamicBodies.length-1].GetPosition().y > (0.1 + this.restitution) && this.dynamicBodies[this.dynamicBodies.length-1].GetLinearVelocity().y <= (4.0 + this.restitution * 10) && this.dynamicBodies[this.dynamicBodies.length-1].GetLinearVelocity().x <= 0.0) {
+	if (this.dynamicBodies[this.dynamicBodies.length-1].GetPosition().y > (0.1 + this.restitution) && 
+		this.dynamicBodies[this.dynamicBodies.length-1].GetLinearVelocity().y <= (4.0 + this.restitution * 10) && 
+		this.dynamicBodies[this.dynamicBodies.length-1].GetLinearVelocity().x <= 0.1 + this.restitution * 10) {
 		
 		console.log('settled');
 		
