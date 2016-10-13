@@ -28,6 +28,13 @@ Stacktris.prototype.start = function() {
 	
 	this.renderer.view.addEventListener('touchmove', (function(e) {
 		this.moved = true;
+		
+		var obj = this.objects[this.objects.length-1];
+		
+		console.log(e.ongoingTouches);
+		
+		obj.b[0].SetPosition([obj.x + e.ongoingTouches[0].pageX, obj.y]);
+		
 	}).bind(this));
 	
 	this.renderer.view.addEventListener('touchend', (function(e) {
