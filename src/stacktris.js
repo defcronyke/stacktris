@@ -53,10 +53,10 @@ Stacktris.prototype.start = function() {
 	var a = this.angles[Math.floor(Math.random()) % this.angles.length];
 	
 	this.possibleObjects = [
-        Asdf,
-        Qwas,
-        Easd,
-        Qasd,
+//        Asdf,
+//        Qwas,
+//        Easd,
+//        Qasd,
         Wasd
     ];
 	

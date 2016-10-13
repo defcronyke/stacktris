@@ -22,7 +22,6 @@ function Wasd(x, y, rot, w, h, density, friction, restitution) {
          0.0 * scale, 0.25 * -scale
     ];
 	
-	// TODO: Fix this
 	this.shapes = [
         [
 	        [0.0 * scale, 0.25 * -scale],
@@ -32,10 +31,10 @@ function Wasd(x, y, rot, w, h, density, friction, restitution) {
         ],
         [
 			[0.25 * scale, 0.5 * -scale],
-			[0.75 * scale, 0.5 * -scale],
-			[0.75 * scale, 0.25 * -scale],
+			[0.5 * scale, 0.5 * -scale],
+			[0.5 * scale, 0.25 * -scale],
 			[0.25 * scale, 0.25 * -scale]
-        ]
+		]
     ];
 	
 	this.colour = 0x77AA22;
