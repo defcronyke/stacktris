@@ -14,21 +14,21 @@ Stacktris.prototype.start = function() {
 	
 	this.stage = new PIXI.Container();
 	this.angles = [
-//           0.0, 
-       90.0, 
-//           180.0, 
-//           270.0
+//       0.0, 
+//       90.0, 
+//       180.0, 
+       270.0
     ];
 	this.shuffle(this.angles);
 
 	var a = this.angles[Math.floor(Math.random()) % this.angles.length];
 	
 	this.possibleObjects = [
-        new Asdf(100, 100, a),
-//            new Easd(100, 100, a),
-//            new Qasd(100, 100, a),
-//            new Qwas(100, 100, a),
-//            new Wasd(100, 100, a)
+//        new Asdf(100, 100, a),
+//        new Easd(100, 100, a),
+//        new Qasd(100, 100, a),
+//        new Qwas(100, 100, a),
+        new Wasd(100, 500, a)
     ];
 	
 	this.shuffle(this.possibleObjects);
@@ -106,8 +106,8 @@ Stacktris.prototype.initPhysics = function(objs) {
 				
 				var shape = obj.shapes[0][j];
 				
-				console.log('! shape !');
-				console.log(shape);
+//				console.log('! shape !');
+//				console.log(shape);
 				
 				vertices.push(
 					new Box2D.Common.Math.b2Vec2(
@@ -128,6 +128,7 @@ Stacktris.prototype.initPhysics = function(objs) {
 			dynamicBodyFixtureDef.restitution = obj.restitution;
 			dynamicBodyFixtureDef.userData = 1;	
 			dynamicBody.CreateFixture(dynamicBodyFixtureDef);
+			this.dynamicBodies.push(dynamicBody);
 			
 		} else if (obj.shapes && obj.shapes.length > 1) {	// If object is concave.
 			
@@ -136,9 +137,31 @@ Stacktris.prototype.initPhysics = function(objs) {
 			for (var j = 0; j < obj.shapes.length; j++) {
 			
 				var shape = obj.shapes[j];
-				var dynamicBodyShape = new Box2D.b2PolygonShape();
-				dynamicBodyShape.Set(shape[0], shape.length);
-				var dynamicBodyFixtureDef = new Box2D.b2FixtureDef();
+				var dynamicBodyShape = new Box2D.Collision.Shapes.b2PolygonShape();
+				
+				var vertices = [];
+				
+				for (var k = 0; k < obj.shapes[j].length; k++) {
+					
+					console.log('k ' + k);
+					
+					var shape = obj.shapes[j][k];
+					
+					console.log('! shape !');
+					console.log(shape);
+					
+					vertices.push(
+						new Box2D.Common.Math.b2Vec2(
+							shape[0],
+							shape[1]
+						)
+					);
+				}
+				
+				dynamicBodyShape.SetAsArray(vertices, vertices.length);
+				
+//				dynamicBodyShape.Set(shape[0], shape.length);
+				var dynamicBodyFixtureDef = new Box2D.Dynamics.b2FixtureDef();
 				dynamicBodyFixtureDef.shape = dynamicBodyShape;
 				dynamicBodyFixtureDef.density = obj.density;
 				dynamicBodyFixtureDef.friction = obj.friction;
@@ -146,6 +169,7 @@ Stacktris.prototype.initPhysics = function(objs) {
 				dynamicBodyFixtureDef.userData = 1;
 				
 				dynamicBody.CreateFixture(dynamicBodyFixtureDef);
+				this.dynamicBodies.push(dynamicBody);
 			}
 		} else if (!obj.shapes || (obj.shapes && obj.shapes.length < 1)) {	// If object has no shapes it must be a triangle.
 			
@@ -174,9 +198,11 @@ Stacktris.prototype.initPhysics = function(objs) {
 			dynamicBodyFixtureDef.userData = 1;
 
 			dynamicBody.CreateFixture(dynamicBodyFixtureDef);
+			
+			this.dynamicBodies.push(dynamicBody);
 		}
 		
-		this.dynamicBodies.push(dynamicBody);
+		
 		
 		obj.visible = true;
 	}
@@ -197,6 +223,7 @@ Stacktris.prototype.stepPhysics = function(objs) {
 		var obj = objs[i];
 		
 		var dynamicBodyPosition = this.dynamicBodies[i].GetPosition();
+//		console.log(dynamicBodyPosition);
 		var dynamicBodyAngle = this.dynamicBodies[i].GetAngle() * 180.0 / Math.PI;
 		obj.x = dynamicBodyPosition.x;
 		obj.y = dynamicBodyPosition.y;

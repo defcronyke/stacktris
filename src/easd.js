@@ -9,31 +9,29 @@ function Easd(x, y, rot, w, h, density, friction, restitution) {
 	this.friction = friction;
 	this.restitution = restitution;
 	
-	var scale = 40;
+	var scale = 70;
 	
 	this.vertices = [
-         -0.75 * scale, 0.25 * scale,
-         0.75 * scale, 0.25 * scale,
-         0.75 * scale, -0.75 * scale,
-         0.25 * scale, -0.75 * scale,
-         0.25 * scale, -0.25 * scale,
-         -0.75 * scale, -0.25 * scale,
-         -0.75 * scale, 0.25 * scale
+         0.0 * scale, 0.0 * -scale,
+         0.75 * scale, 0.0 * -scale,
+         0.75 * scale, 0.5 * -scale,
+         0.5 * scale, 0.5 * -scale,
+         0.5 * scale, 0.25 * -scale,
+         0.0 * scale, 0.25 * -scale
     ];
 	
-	// TODO: Fix this
 	this.shapes = [
         [
-	        [-0.75 * scale, -0.25 * scale],
-	        [0.75 * scale, -0.25 * scale],
-	        [0.75 * scale, 0.25 * scale],
-	        [-0.75 * scale, 0.25 * scale]
+	        [0.0 * scale, 0.25 * -scale],
+	        [0.75 * scale, 0.25 * -scale],
+	        [0.75 * scale, 0.0 * scale],
+	        [0.0 * scale, 0.0 * scale]
         ],
         [
-			[0.25 * scale, 0.25 * scale],
-			[0.75 * scale, 0.25 * scale],
-			[0.75 * scale, 0.75 * scale],
-			[0.25 * scale, 0.75 * scale]
+			[0.5 * scale, 0.5 * -scale],
+			[0.75 * scale, 0.5 * -scale],
+			[0.75 * scale, 0.25 * -scale],
+			[0.25 * scale, 0.25 * -scale]
         ]
     ];
 	
