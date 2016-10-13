@@ -11,17 +11,6 @@ h1 {
 canvas {
 	max-width: 400px;
 	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
-canvas:fullscreen {
-    background-color: rgba(255,255,255,1);
-}
-canvas:-webkit-full-screen {
-    background-color: rgba(255,255,255,1);
-}
-canvas:-moz-full-screen {
-    background-color: rgba(255,255,255,1);
 }
 
 *:fullscreen, *:-webkit-full-screen, *:-moz-full-screen {

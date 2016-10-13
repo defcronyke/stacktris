@@ -25,12 +25,23 @@ Stacktris.prototype.start = function() {
 	
 	document.body.appendChild(this.renderer.view);
 	this.w = 400.0;
+	this.h = 600.0;
 	this.density = 1.0;
 	this.friction = 0.99;
 	this.restitution = 0.4;
 	this.yStart = 0.0;
 	
 	this.stage = new PIXI.Container();
+	
+	// Ground
+	var g = new PIXI.Graphics();
+	g.beginFill(0x000000);
+	g.lineStyle(0, 0x000000);
+	g.position.x = 0.0;
+	g.position.y = this.h;
+	g.drawPolygon([0.0, 0.0, this.w, 0.0, this.w, -1.0, 0.0, -1.0]);
+	this.stage.addChild(g);	
+	
 	this.angles = [
        0.0, 
        90.0, 
