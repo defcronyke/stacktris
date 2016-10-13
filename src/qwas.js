@@ -27,6 +27,6 @@ function Qwas(x, y, rot, w, h, density, friction, restitution) {
         ]
     ];
 	
-	this.colour = 0xAA66FF;
+	this.colour = 0xFFAAFF;
 }
 

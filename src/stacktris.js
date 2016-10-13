@@ -34,9 +34,9 @@ Stacktris.prototype.start = function() {
 	this.possibleObjects = [
         Asdf,
         Qwas,
-//        Easd,
-//        Qasd,
-//        Wasd
+        Easd,
+        Qasd,
+        Wasd
     ];
 	
 	this.shuffle(this.possibleObjects);
@@ -76,7 +76,7 @@ Stacktris.prototype.animate = function() {
 
 Stacktris.prototype.initPhysics = function() {
 	
-	this.dynamicBodies = [];
+//	this.dynamicBodies = [];
 
 	var groundBodyDef = new Box2D.Dynamics.b2BodyDef();
 	groundBodyDef.position.Set(0.0, 600.0);
@@ -104,7 +104,7 @@ Stacktris.prototype.initPhysics = function() {
 		
 		if (obj.shapes && obj.shapes.length == 1) {	// If object is convex.
 			
-			console.log('convex');
+//			console.log('convex');
 			
 			var dynamicBodyShape = new Box2D.Collision.Shapes.b2PolygonShape();
 			
@@ -133,11 +133,14 @@ Stacktris.prototype.initPhysics = function() {
 			dynamicBodyFixtureDef.restitution = this.restitution;
 			dynamicBodyFixtureDef.userData = 1;	
 			dynamicBody.CreateFixture(dynamicBodyFixtureDef);
-			this.dynamicBodies.push(dynamicBody);
+			var dynamicBodies = [];
+			dynamicBodies.push(dynamicBody);
+			obj.b = dynamicBodies;
 			
 		} else if (obj.shapes && obj.shapes.length > 1) {	// If object is concave.
 			
-			console.log('concave');
+//			console.log('concave');
+			var dynamicBodies = [];
 			
 			for (var j = 0; j < obj.shapes.length; j++) {
 			
@@ -168,8 +171,12 @@ Stacktris.prototype.initPhysics = function() {
 				dynamicBodyFixtureDef.userData = 1;
 				
 				dynamicBody.CreateFixture(dynamicBodyFixtureDef);
-				this.dynamicBodies.push(dynamicBody);
+				
+				dynamicBodies.push(dynamicBody);
+				
 			}
+			
+			obj.b = dynamicBodies;
 		}
 		
 		obj.visible = true;
@@ -203,11 +210,11 @@ Stacktris.prototype.updatePhysics = function() {
 	dynamicBodyDef.bullet = true;
 	var dynamicBody = this.world.CreateBody(dynamicBodyDef);
 	
-	console.log(dynamicBodyDef.position);
+//	console.log(dynamicBodyDef.position);
 	
 	if (obj.shapes && obj.shapes.length == 1) {	// If object is convex.
 		
-		console.log('convex');
+//		console.log('convex');
 		
 		var dynamicBodyShape = new Box2D.Collision.Shapes.b2PolygonShape();
 		
@@ -236,11 +243,14 @@ Stacktris.prototype.updatePhysics = function() {
 		dynamicBodyFixtureDef.restitution = this.restitution;
 		dynamicBodyFixtureDef.userData = 1;	
 		dynamicBody.CreateFixture(dynamicBodyFixtureDef);
-		this.dynamicBodies.push(dynamicBody);
+		var dynamicBodies = [];
+		dynamicBodies.push(dynamicBody);
+		obj.b = dynamicBodies;
 		
 	} else if (obj.shapes && obj.shapes.length > 1) {	// If object is concave.
 		
-		console.log('concave');
+//		console.log('concave');
+		var dynamicBodies = [];
 		
 		for (var j = 0; j < obj.shapes.length; j++) {
 		
@@ -271,8 +281,9 @@ Stacktris.prototype.updatePhysics = function() {
 			dynamicBodyFixtureDef.userData = 1;
 			
 			dynamicBody.CreateFixture(dynamicBodyFixtureDef);
-			this.dynamicBodies.push(dynamicBody);
+			dynamicBodies.push(dynamicBody);
 		}
+		obj.b = dynamicBodies;
 	}
 	
 	obj.visible = true;
@@ -284,11 +295,11 @@ Stacktris.prototype.stepPhysics = function() {
 //	console.log('! ' + 4.0 + this.restitution * 10);
 //	console.log('y pos: ' + this.dynamicBodies[this.dynamicBodies.length-1].GetPosition().y);
 	
-	if (this.dynamicBodies[this.dynamicBodies.length-1].GetPosition().y > (0.1 + this.restitution) && 
-		this.dynamicBodies[this.dynamicBodies.length-1].GetLinearVelocity().y <= (4.0 + this.restitution * 10) && 
-		this.dynamicBodies[this.dynamicBodies.length-1].GetLinearVelocity().x <= 0.1 + this.restitution * 10) {
+	if (this.objects[this.objects.length-1].b[0].GetPosition().y > (0.1 + this.restitution) && 
+		this.objects[this.objects.length-1].b[0].GetLinearVelocity().y <= (4.0 + this.restitution * 10) && 
+		this.objects[this.objects.length-1].b[0].GetLinearVelocity().x <= 0.1 + this.restitution * 10) {
 		
-		console.log('settled');
+//		console.log('settled');
 		
 		this.shuffle(this.angles);
 		
@@ -330,8 +341,8 @@ Stacktris.prototype.stepPhysics = function() {
 		
 		obj.visible = true;
 		
-		var dynamicBodyPosition = this.dynamicBodies[i].GetPosition();
-		var dynamicBodyAngle = this.dynamicBodies[i].GetAngle() * 180.0 / Math.PI;
+		var dynamicBodyPosition = obj.b[0].GetPosition();
+		var dynamicBodyAngle = obj.b[0].GetAngle() * 180.0 / Math.PI;
 		obj.x = dynamicBodyPosition.x;
 		obj.y = dynamicBodyPosition.y;
 		obj.rot = Math.fmod(dynamicBodyAngle, 360.0);

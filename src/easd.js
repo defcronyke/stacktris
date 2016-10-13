@@ -35,6 +35,6 @@ function Easd(x, y, rot, w, h, density, friction, restitution) {
         ]
     ];
 	
-	this.colour = 0xAA66FF;
+	this.colour = 0x3366AA;
 }
 
