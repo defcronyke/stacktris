@@ -31,11 +31,10 @@ Stacktris.prototype.start = function() {
 	}).bind(this));
 	
 	this.renderer.view.addEventListener('touchend', (function(e) {
-		
+		var obj = this.objects[this.objects.length-1];
 		if (!this.moved) {
 			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
 		}
-		
 		this.moved = false;
 	}).bind(this));
 	
