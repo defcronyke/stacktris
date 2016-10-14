@@ -9,7 +9,8 @@ function Stacktris() {
 Stacktris.prototype.start = function() {
 	
 	this.renderer = new PIXI.autoDetectRenderer(400, 600, {
-		transparent: true, 
+//		transparent: true,
+		backgroundColor: 0xFFFFFF,
 		antialias: true
 	});
 	
