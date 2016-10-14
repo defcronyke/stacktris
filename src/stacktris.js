@@ -48,9 +48,45 @@ Stacktris.prototype.start = function() {
 	
 	
 	window.addEventListener('keydown', (function(e) {
+		
+		console.log(e.keyCode);
+		
 		var obj = this.objects[this.objects.length-1];
 		if (e.keyCode === 32 && !this.moved) {
 			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+		} else if (e.keyCode === 37) {
+			this.movingLeft = true;
+//			var pos = obj.b[0].GetPosition();
+//			pos.x -= 5.0;
+//			obj.b[0].SetPosition(pos);
+			
+		} else if (e.keyCode === 39) {
+			this.movingRight = true;
+//			var pos = obj.b[0].GetPosition();
+//			pos.x += 5.0;
+//			obj.b[0].SetPosition(pos);
+		}
+		this.moved = false;
+	}).bind(this));
+	
+window.addEventListener('keyup', (function(e) {
+		
+		console.log(e.keyCode);
+		
+		var obj = this.objects[this.objects.length-1];
+		if (e.keyCode === 32 && !this.moved) {
+//			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+		} else if (e.keyCode === 37) {
+			this.movingLeft = false;
+//			var pos = obj.b[0].GetPosition();
+//			pos.x -= 5.0;
+//			obj.b[0].SetPosition(pos);
+			
+		} else if (e.keyCode === 39) {
+			this.movingRight = false;
+//			var pos = obj.b[0].GetPosition();
+//			pos.x += 5.0;
+//			obj.b[0].SetPosition(pos);
 		}
 		this.moved = false;
 	}).bind(this));
@@ -382,6 +418,22 @@ Stacktris.prototype.stepPhysics = function() {
 //		return;
 	}
 	
+	var obj = this.objects[this.objects.length-1];
+	
+	if (this.movingLeft) {
+		console.log('left');
+		var pos = obj.b[0].GetPosition();
+		obj.x -= 1.0;
+		obj.b[0].SetPosition(pos);
+	}
+	
+	if (this.movingRight) {
+		console.log('right');
+		var pos = obj.b[0].GetPosition();
+		obj.x += 1.0;
+		obj.b[0].SetPosition(pos);
+	}
+	
 	var timeStep = 1.0 / 60.0;
 	var velocityIterations = 6;
 	var positionIterations = 2;
@@ -403,6 +455,8 @@ Stacktris.prototype.stepPhysics = function() {
 		obj.g.position.y = obj.y;
 		obj.g.rotation = obj.rot * Math.PI / 180.0;
 	}
+	
+	
 };
 
 Stacktris.prototype.shuffle = function(a) {
