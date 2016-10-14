@@ -19,7 +19,7 @@ Stacktris.prototype.start = function() {
 	this.moved = false;
 	
 	this.renderer.view.onclick = (function(e) {
-		e.preventDefault();
+//		e.preventDefault();
 		this.renderer.view.requestFullscreen();
 		var obj = this.objects[this.objects.length-1];
 //		if (!this.moved) {
