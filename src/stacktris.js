@@ -167,7 +167,8 @@ Stacktris.prototype.start = function() {
 	this.shuffle(this.possibleObjects);
 	
 	
-	var obj = new (this.possibleObjects[Math.floor(Math.random()) % this.possibleObjects.length])(this.w/2 - 25, this.yStart, a);
+	var obj = new (this.possibleObjects[Math.floor(Math.random()) % this.possibleObjects.length])(this.w/2, this.yStart, a);
+	obj.colour = Math.floor(Math.random()*16777215);
 	
 	var g = new PIXI.Graphics();
 	g.beginFill(obj.colour);
@@ -330,7 +331,7 @@ Stacktris.prototype.updatePhysics = function() {
 	
 	var dynamicBodyDef = new Box2D.Dynamics.b2BodyDef();
 	dynamicBodyDef.type = Box2D.Dynamics.b2Body.b2_dynamicBody;
-	dynamicBodyDef.position = new Box2D.Common.Math.b2Vec2(this.w/2 - 25, this.yStart);
+	dynamicBodyDef.position = new Box2D.Common.Math.b2Vec2(this.w/2, this.yStart);
 	dynamicBodyDef.angle = obj.rot * Math.PI / 180.0;
 	dynamicBodyDef.bullet = true;
 	var dynamicBody = this.world.CreateBody(dynamicBodyDef);
@@ -433,7 +434,7 @@ Stacktris.prototype.stepPhysics = function() {
 		
 		this.shuffle(this.possibleObjects);
 		
-		var obj = new (this.possibleObjects[Math.floor(Math.random()) % this.possibleObjects.length])(this.w/2 - 25, this.yStart, a); 
+		var obj = new (this.possibleObjects[Math.floor(Math.random()) % this.possibleObjects.length])(this.w/2, this.yStart, a); 
 		
 //		obj.x = this.w/2 - 25;
 //		obj.y = -1.0;
@@ -441,6 +442,7 @@ Stacktris.prototype.stepPhysics = function() {
 		obj.visible = true;
 		
 		var g = new PIXI.Graphics();
+		obj.colour = Math.floor(Math.random()*16777215);
 		g.beginFill(obj.colour);
 		g.lineStyle(0, 0xFF0000);
 		g.position.x = obj.x;
@@ -448,6 +450,7 @@ Stacktris.prototype.stepPhysics = function() {
 		g.drawPolygon(obj.vertices);
 		this.stage.addChild(g);
 		obj.g = g;
+		
 		this.objects.push(obj);
 		this.updatePhysics();
 		

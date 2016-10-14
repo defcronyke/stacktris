@@ -9,21 +9,21 @@ function Asdf(x, y, rot, w, h, density, friction, restitution) {
 	this.friction = friction;
 	this.restitution = restitution;
 	
-	var scale = 70;
+	var scale = 40;
 	
 	this.vertices = [
-        0.0 * scale, 0.0 * scale,
-        1.0 * scale, 0.0 * scale,
-        1.0 * scale, 0.25 * -scale,
-        0.0 * scale, 0.25 * -scale
+		-1.0 * scale, -0.25 * scale,
+		1.0 * scale, -0.25 * scale,
+		1.0 * scale, 0.25 * scale,
+		-1.0 * scale, 0.25 * scale
     ];
 	
 	this.shapes = [
        [
-	        [0.0 * scale, 0.25 * -scale],
-	        [1.0 * scale, 0.25 * -scale],
-	        [1.0 * scale, 0.0 * scale],
-	        [0.0 * scale, 0.0 * scale]
+	        [-1.0 * scale, -0.25 * scale],
+	        [1.0 * scale, -0.25 * scale],
+	        [1.0 * scale, 0.25 * scale],
+	        [-1.0 * scale, 0.25 * scale]
         ]
     ];
 	
