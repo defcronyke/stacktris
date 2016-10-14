@@ -30,32 +30,32 @@ Stacktris.prototype.start = function() {
 	
 	
 	
-	this.renderer.view.addEventListener('touchstart', (function(e) {
-//		e.preventDefault();
-		this.renderer.view.requestFullscreen();
-		this.moved = false;
-	}).bind(this));
-	
-	this.renderer.view.addEventListener('touchmove', (function(e) {
-//		e.preventDefault();
-		this.moved = true;
-		
-		var obj = this.objects[this.objects.length-1];
-		
-		console.log(e.ongoingTouches);
-		
-		obj.b[0].SetPosition([obj.x + e.ongoingTouches[0].pageX, obj.y]);
-		
-	}).bind(this));
-	
-	this.renderer.view.addEventListener('touchend', (function(e) {
-//		e.preventDefault();
-		var obj = this.objects[this.objects.length-1];
-		if (!this.moved) {
-			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
-		}
-		this.moved = false;
-	}).bind(this));
+//	this.renderer.view.addEventListener('touchstart', (function(e) {
+////		e.preventDefault();
+//		this.renderer.view.requestFullscreen();
+//		this.moved = false;
+//	}).bind(this));
+//	
+//	this.renderer.view.addEventListener('touchmove', (function(e) {
+////		e.preventDefault();
+//		this.moved = true;
+//		
+//		var obj = this.objects[this.objects.length-1];
+//		
+//		console.log(e.ongoingTouches);
+//		
+//		obj.b[0].SetPosition([obj.x + e.ongoingTouches[0].pageX, obj.y]);
+//		
+//	}).bind(this));
+//	
+//	this.renderer.view.addEventListener('touchend', (function(e) {
+////		e.preventDefault();
+//		var obj = this.objects[this.objects.length-1];
+//		if (!this.moved) {
+//			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+//		}
+//		this.moved = false;
+//	}).bind(this));
 	
 	
 	
