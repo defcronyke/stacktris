@@ -16,6 +16,8 @@ Stacktris.prototype.start = function() {
 	
 	this.renderer.view.requestFullscreen = this.renderer.view.mozRequestFullScreen || this.renderer.view.webkitRequestFullScreen || this.renderer.view.requestFullScreen;
 	
+	this.moved = false;
+	
 	this.renderer.view.onclick = (function(e) {
 		this.renderer.view.requestFullscreen();
 		var obj = this.objects[this.objects.length-1];
@@ -25,7 +27,7 @@ Stacktris.prototype.start = function() {
 		this.moved = false;
 	}).bind(this);
 	
-	this.moved = false;
+	
 	
 	this.renderer.view.addEventListener('touchstart', (function(e) {
 		e.preventDefault();
