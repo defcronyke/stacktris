@@ -3,6 +3,15 @@ window.onload = function() {
 };
 
 function Stacktris() {
+	
+	this.w = 400.0;
+	this.h = 600.0;
+	this.density = 1.0;
+	this.friction = 0.99;
+	this.restitution = 0.4;
+	this.yStart = 0.0;
+	this.speed = 3.0;
+	
 	Math.fmod = function (a,b) { return Number((a - (Math.floor(a / b) * b)).toPrecision(8)); };
 }
 
@@ -17,15 +26,22 @@ Stacktris.prototype.start = function() {
 	this.renderer.view.requestFullscreen = this.renderer.view.mozRequestFullScreen || this.renderer.view.webkitRequestFullScreen || this.renderer.view.requestFullScreen;
 	
 	this.moved = false;
+	this.movingLeft = false;
+	this.movingRight = false;
+	this.movingDown = false;
+	this.newPiece = false;
 	
 	this.renderer.view.onclick = (function(e) {
 //		e.preventDefault();
 		this.renderer.view.requestFullscreen();
-		var obj = this.objects[this.objects.length-1];
-//		if (!this.moved) {
-			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
-//		}
-//		this.moved = false;
+		
+		if (this.objects && this.objects.length > 0) {
+			var obj = this.objects[this.objects.length-1];
+	//		if (!this.moved) {
+				obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+	//		}
+	//		this.moved = false;
+		}
 	}).bind(this);
 	
 	
@@ -33,22 +49,27 @@ Stacktris.prototype.start = function() {
 	this.renderer.view.addEventListener('touchstart', (function(e) {
 //		e.preventDefault();
 		this.renderer.view.requestFullscreen();
-		var obj = this.objects[this.objects.length-1];
-		if (!this.moved) {
-			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+		
+		if (this.objects && this.objects.length > 0) {
+			var obj = this.objects[this.objects.length-1];
+			if (!this.moved) {
+				obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+			}
+			this.moved = false;
 		}
-		this.moved = false;
 	}).bind(this));
 	
 	this.renderer.view.addEventListener('touchmove', (function(e) {
 //		e.preventDefault();
-		this.moved = true;
-		
-		var obj = this.objects[this.objects.length-1];
-		
-		console.log(e.ongoingTouches);
-		
-		obj.b[0].SetPosition([obj.x + e.ongoingTouches[0].pageX, obj.y]);
+
+		if (this.objects && this.objects.length > 0) {
+			var obj = this.objects[this.objects.length-1];
+			
+			console.log(e.ongoingTouches);
+			
+			obj.b[0].SetPosition([obj.x + e.ongoingTouches[0].pageX, obj.y]);
+			this.moved = true;
+		}
 		
 	}).bind(this));
 	
@@ -65,56 +86,55 @@ Stacktris.prototype.start = function() {
 	
 	window.addEventListener('keydown', (function(e) {
 		
-		console.log(e.keyCode);
-		
-		var obj = this.objects[this.objects.length-1];
-		if (e.keyCode === 32 && !this.moved) {
-			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
-		} else if (e.keyCode === 37) {
-			this.movingLeft = true;
-//			var pos = obj.b[0].GetPosition();
-//			pos.x -= 5.0;
-//			obj.b[0].SetPosition(pos);
-			
-		} else if (e.keyCode === 39) {
-			this.movingRight = true;
-//			var pos = obj.b[0].GetPosition();
-//			pos.x += 5.0;
-//			obj.b[0].SetPosition(pos);
+//		console.log(e.keyCode);
+		if (this.objects && this.objects.length > 0) {
+			var obj = this.objects[this.objects.length-1];
+			if (e.keyCode === 32 && !this.moved) {
+				obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+			} else if (e.keyCode === 37) {
+				this.movingLeft = true;
+	//			var pos = obj.b[0].GetPosition();
+	//			pos.x -= 5.0;
+	//			obj.b[0].SetPosition(pos);
+				
+			} else if (e.keyCode === 39) {
+				this.movingRight = true;
+	//			var pos = obj.b[0].GetPosition();
+	//			pos.x += 5.0;
+	//			obj.b[0].SetPosition(pos);
+			} else if (e.keyCode === 40) {
+				this.movingDown = true;
+			}
+			this.moved = false;
 		}
-		this.moved = false;
 	}).bind(this));
 	
 	window.addEventListener('keyup', (function(e) {
 		
-		console.log(e.keyCode);
-		
-		var obj = this.objects[this.objects.length-1];
-		if (e.keyCode === 32 && !this.moved) {
-//			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
-		} else if (e.keyCode === 37) {
-			this.movingLeft = false;
-//			var pos = obj.b[0].GetPosition();
-//			pos.x -= 5.0;
-//			obj.b[0].SetPosition(pos);
-			
-		} else if (e.keyCode === 39) {
-			this.movingRight = false;
-//			var pos = obj.b[0].GetPosition();
-//			pos.x += 5.0;
-//			obj.b[0].SetPosition(pos);
+//		console.log(e.keyCode);
+		if (this.objects && this.objects.length > 0) {
+			var obj = this.objects[this.objects.length-1];
+			if (e.keyCode === 32 && !this.moved) {
+	//			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+			} else if (e.keyCode === 37) {
+				this.movingLeft = false;
+	//			var pos = obj.b[0].GetPosition();
+	//			pos.x -= 5.0;
+	//			obj.b[0].SetPosition(pos);
+				
+			} else if (e.keyCode === 39) {
+				this.movingRight = false;
+	//			var pos = obj.b[0].GetPosition();
+	//			pos.x += 5.0;
+	//			obj.b[0].SetPosition(pos);
+			} else if (e.keyCode === 40) {
+				this.movingDown = false;
+			}
+			this.moved = false;
 		}
-		this.moved = false;
 	}).bind(this));
 	
 	document.body.appendChild(this.renderer.view);
-	this.w = 400.0;
-	this.h = 600.0;
-	this.density = 1.0;
-	this.friction = 0.99;
-	this.restitution = 0.4;
-	this.yStart = 0.0;
-	
 	this.stage = new PIXI.Container();
 	
 	// Ground
@@ -184,12 +204,12 @@ Stacktris.prototype.initPhysics = function() {
 //	this.dynamicBodies = [];
 
 	var groundBodyDef = new Box2D.Dynamics.b2BodyDef();
-	groundBodyDef.position.Set(0.0, 600.0);
+	groundBodyDef.position.Set(this.w/2, this.h + 100.0);
 	var gravity = new Box2D.Common.Math.b2Vec2(0.0, 500.0);
 	this.world = new Box2D.Dynamics.b2World(gravity);
 	var groundBody = this.world.CreateBody(groundBodyDef);
 	var groundBodyShape = new Box2D.Collision.Shapes.b2PolygonShape();
-	groundBodyShape.SetAsBox(400.0, 0.0);
+	groundBodyShape.SetAsBox(this.w/2, 100.0);
 	var groundBodyFixtureDef = new Box2D.Dynamics.b2FixtureDef();
 	groundBodyFixtureDef.shape = groundBodyShape;
 	groundBodyFixtureDef.density = this.density;
@@ -400,10 +420,11 @@ Stacktris.prototype.stepPhysics = function() {
 //	console.log('! ' + 4.0 + this.restitution * 10);
 //	console.log('y pos: ' + this.dynamicBodies[this.dynamicBodies.length-1].GetPosition().y);
 	
-	if (this.objects[this.objects.length-1].b[0].GetPosition().y > (0.1 + this.restitution) && 
+	if (this.newPiece || (!this.newPiece && this.objects && this.objects.length > 0 && this.objects[this.objects.length-1].b[0].GetPosition().y > (0.1 + this.restitution) && 
 		this.objects[this.objects.length-1].b[0].GetLinearVelocity().y <= (4.0 + this.restitution * 10) && 
-		this.objects[this.objects.length-1].b[0].GetLinearVelocity().x <= 0.1 + this.restitution * 10) {
+		this.objects[this.objects.length-1].b[0].GetLinearVelocity().x <= 0.1 + this.restitution * 10)) {
 		
+		this.newPiece = false;
 //		console.log('settled');
 		
 		this.shuffle(this.angles);
@@ -434,21 +455,7 @@ Stacktris.prototype.stepPhysics = function() {
 //		return;
 	}
 	
-	var obj = this.objects[this.objects.length-1];
 	
-	if (this.movingLeft) {
-		console.log('left');
-		var pos = obj.b[0].GetPosition();
-		obj.x -= 1.0;
-		obj.b[0].SetPosition(pos);
-	}
-	
-	if (this.movingRight) {
-		console.log('right');
-		var pos = obj.b[0].GetPosition();
-		obj.x += 1.0;
-		obj.b[0].SetPosition(pos);
-	}
 	
 	var timeStep = 1.0 / 60.0;
 	var velocityIterations = 6;
@@ -470,9 +477,46 @@ Stacktris.prototype.stepPhysics = function() {
 		obj.g.position.x = obj.x;
 		obj.g.position.y = obj.y;
 		obj.g.rotation = obj.rot * Math.PI / 180.0;
+		
+		if (obj.y > this.h + 10.0) {
+//			console.log('removing child');
+			this.stage.removeChild(obj.g);
+			this.world.DestroyBody(obj.b);
+			this.objects.splice(i, 1);
+			
+		}
 	}
 	
+	if (this.objects && this.objects.length > 0) {
 	
+		var obj = this.objects[this.objects.length-1];
+		
+		if (this.movingLeft) {
+//			console.log('left');
+			var pos = obj.b[0].GetPosition();
+			pos.x -= this.movingDown ? this.speed/2: this.speed;
+			obj.b[0].SetPosition(pos);
+		}
+		
+		if (this.movingRight) {
+//			console.log('right');
+			var pos = obj.b[0].GetPosition();
+			pos.x += this.movingDown ? this.speed/2: this.speed;
+			obj.b[0].SetPosition(pos);
+		}
+		
+		if (this.movingDown) {
+//			console.log('down');
+			var pos = obj.b[0].GetPosition();
+			pos.y += (this.movingLeft || this.movingRight) ? this.speed/2: this.speed;
+			obj.b[0].SetPosition(pos);
+		}
+		
+		if (obj.y > this.h + 5.0) {
+//			console.log('new piece');
+			this.newPiece = true;
+		}
+	}
 };
 
 Stacktris.prototype.shuffle = function(a) {
