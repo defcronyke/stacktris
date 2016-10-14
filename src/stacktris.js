@@ -70,12 +70,11 @@ Stacktris.prototype.start = function() {
 			
 			console.log(e.ongoingTouches);
 			
-			obj.b[0].SetPosition([obj.x + e.touches[0].pageX, obj.y]);
+			obj.b[0].SetPosition([e.touches[0].pageX, obj.y]);
 			this.moved = true;
 		}
 		
-		this.touchX = e.touches[0].pageX;
-		this.touchY = e.touches[0].pageY;
+		
 		
 	}).bind(this));
 	
@@ -86,6 +85,10 @@ Stacktris.prototype.start = function() {
 //			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
 //		}
 		this.moved = false;
+		
+		this.touchX = e.touches[0].pageX;
+		this.touchY = e.touches[0].pageY;
+		
 	}).bind(this));
 	
 	
