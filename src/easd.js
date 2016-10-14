@@ -31,7 +31,7 @@ function Easd(x, y, rot, w, h, density, friction, restitution) {
 			[0.5 * scale, 0.5 * -scale],
 			[0.75 * scale, 0.5 * -scale],
 			[0.75 * scale, 0.25 * -scale],
-			[0.25 * scale, 0.25 * -scale]
+			[0.5 * scale, 0.25 * -scale]
         ]
     ];
 	
