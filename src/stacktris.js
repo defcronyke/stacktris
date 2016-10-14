@@ -70,7 +70,7 @@ Stacktris.prototype.start = function() {
 			
 			console.log(e.ongoingTouches);
 			
-			obj.b[0].SetPosition([obj.x + (this.touchX - e.touches[0].screenX), obj.y]);
+//			obj.b[0].SetPosition([obj.x + (this.touchX - e.touches[0].screenX), obj.y]);	// TODO: Get this right
 			this.moved = true;
 		}
 		
