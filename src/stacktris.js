@@ -18,6 +18,11 @@ Stacktris.prototype.start = function() {
 	
 	this.renderer.view.onclick = (function(e) {
 		this.renderer.view.requestFullscreen();
+		var obj = this.objects[this.objects.length-1];
+		if (!this.moved) {
+			obj.b[0].SetAngle((obj.rot - 90.0) * Math.PI/180.0);
+		}
+		this.moved = false;
 	}).bind(this);
 	
 	this.moved = false;
