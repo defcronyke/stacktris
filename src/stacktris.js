@@ -57,6 +57,9 @@ Stacktris.prototype.start = function() {
 			}
 			this.moved = false;
 		}
+		
+		this.touchX = e.touches[0].pageX;
+		this.touchY = e.touches[0].pageY;
 	}).bind(this));
 	
 	this.renderer.view.addEventListener('touchmove', (function(e) {
@@ -67,9 +70,12 @@ Stacktris.prototype.start = function() {
 			
 			console.log(e.ongoingTouches);
 			
-			obj.b[0].SetPosition([obj.x + e.ongoingTouches[0].pageX, obj.y]);
+			obj.b[0].SetPosition([obj.x + this.touchX - e.touches[0].pageX, obj.y]);
 			this.moved = true;
 		}
+		
+		this.touchX = e.touches[0].pageX;
+		this.touchY = e.touches[0].pageY;
 		
 	}).bind(this));
 	
