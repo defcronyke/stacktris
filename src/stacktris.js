@@ -58,8 +58,8 @@ Stacktris.prototype.start = function() {
 			this.moved = false;
 		}
 		
-//		this.touchX = e.touches[0].pageX;
-//		this.touchY = e.touches[0].pageY;
+		this.touchX = e.touches[0].clientX;
+		this.touchY = e.touches[0].clientY;
 	}).bind(this));
 	
 	this.renderer.view.addEventListener('touchmove', (function(e) {
@@ -86,8 +86,8 @@ Stacktris.prototype.start = function() {
 //		}
 		this.moved = false;
 		
-		this.touchX = e.touches[0].pageX;
-		this.touchY = e.touches[0].pageY;
+		this.touchX = e.touches[0].clientX;
+		this.touchY = e.touches[0].clientY;
 		
 	}).bind(this));
 	
